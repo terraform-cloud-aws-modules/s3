@@ -1,19 +1,19 @@
 variable "rootlevelfolder" {
-  type    = "list"
+  type    = list
   default = ["foo", "bar", "baz"]
 }
 
 variable "sublevelfolder" {
-  type    = "list"
+  type    = list
   default = ["one", "two", "three", "four", "five", "six"]
 }
 
 variable "bucketname" {
-  type    = "string"
+  type    = string
 }
 
 variable "acl" {
-  type    = "string"
+  type    = string
   default = "private"
 }
 
