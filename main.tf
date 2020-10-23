@@ -1,6 +1,6 @@
 # combine variable lists into 'folderstructure'
 locals {
-  folderstructure = combine(var.rootlevelfolder, var.sublevelfolder)
+  folderstructure = setproduct(var.rootlevelfolder, var.sublevelfolder)
 }
 
 # create s3 bucket
