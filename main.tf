@@ -15,8 +15,9 @@ resource "aws_s3_bucket" "this" {
 
 # generate root and subfolders
 resource "aws_s3_bucket_object" "this" {
-    bucket  = aws_s3_bucket.this.id
-    acl     = var.acl
-    key     =  ${element(local.folderstructure, count.index)[0]}/${element(local.folderstructure, count.index)[1]}
-    content_type = "application/x-directory"
+	  count					= "${length(var.rootlevelfolder) * length(var.sublevelfolder)}"
+    bucket				= aws_s3_bucket.this.id
+    acl						= var.acl
+    key						=  ${element(local.folderstructure, count.index)[0]}/${element(local.folderstructure, count.index)[1]}
+    content_type	= "application/x-directory"
 }
