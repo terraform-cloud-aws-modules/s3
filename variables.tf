@@ -1,11 +1,11 @@
 variable "rootlevelfolder" {
   type    = list
-  default = ["foo", "bar", "baz"]
+  default = []
 }
 
 variable "sublevelfolder" {
   type    = list
-  default = ["one", "two", "three", "four", "five", "six"]
+  default = []
 }
 
 variable "bucketname" {
