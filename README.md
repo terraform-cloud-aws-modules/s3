@@ -6,8 +6,8 @@
 
 ## Goal
 
-Creating a S3 Bucket with a list of "main/root" folders and also a list of subfolders for each "main/root" folder.
-With this example this module will provide you with the following structure for your S3 Bucket:
+Creating a S3 Bucket with a list of "main/root" folders and also subfolders from a list for each "main/root" folder.
+Following this example you'll get the following folder structure for your S3 Bucket:
 
     |_ foo
     	|_ one
@@ -38,17 +38,18 @@ On Mac:
     brew tap hashicorp/tap
     brew install hashicorp/tap/terraform
 
-## Create Terraform base
+## Create your terraform base Structure
 
-I would advise you to do it like this:
+I would advise you to start with this:
 
     .
     ├── config
     │   └── aws-dev.tfvars
     ├── main.tf
+    ├── outputs.tf
     └── variables.tf
-    
-    1 directory, 3 files
+
+    1 directory, 4 files
 
 ### tfvars
 
@@ -65,7 +66,7 @@ for useage in our main.tf
 
 ### main.tf
 
-Create main.tf with the following code:
+Create the main.tf with the following code:
 
     provider "aws" {
       profile = var.profile
@@ -77,7 +78,7 @@ Create main.tf with the following code:
       source      = "git@github.com:terraform-cloud-aws-modules/s3.git"
       bucketname  = "INSERT-YOUR-BUCKET-NAME-HERE"
       rootlevelfolder = ["foo", "bar", "baz"]
-      sublevelfolder = ["one", "two", "three", "four", "five", "six"]
+      sublevelfolder  = ["one", "two", "three", "four", "five", "six"]
     }
 
 ### variables.tf
@@ -92,6 +93,22 @@ You have to declare variables from tfvars file like:
     variable "region" {
       type          = string
       description   = "provider region"
+    }
+
+### outputs.tf
+
+You can use the outputs from the module here like:
+
+    output "bucket_id" {
+        value = module.s3.this_s3_bucket_id
+    }
+
+    output "bucket_arn" {
+        value = module.s3.this_s3_bucket_arn
+    }
+
+    output "bucket_region" {
+        value = module.s3.this_s3_bucket_region
     }
 
 ## terraform init & run
