@@ -69,6 +69,34 @@ Please put the following code in your aws-dev.tfvars:
       project         = "aws"
     }
 
+##### Optional
+
+Install terragrunt
+Mac:
+
+    brew install terragrunt
+
+and split your config into something like:
+
+    .
+    └── config
+        └── aws-dev
+            ├── common.tfvars
+            └── region.tfvars
+
+In your root folder (where your main.tf is located) create "terragrunt.hcl" with this content:
+
+    terraform {
+      extra_arguments "common_vars" {
+        commands = ["plan", "apply"]
+
+        arguments = [
+          "-var-file=config/aws-dev/region.tfvars",
+          "-var-file=config/aws-dev/common.tfvars"
+        ]
+      }
+    }
+
 ### main.tf
 
 Create the main.tf with the following code:
@@ -132,3 +160,7 @@ and then run plan or apply with tfvars file like:
 
     terraform plan -var-file=config/aws-dev.tfvars
 
+or if you had installed terragrunt, just run:
+
+    terragrunt init
+    terragrunt plan
