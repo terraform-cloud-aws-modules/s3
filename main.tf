@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "this" {
   versioning {
     enabled = var.versioning
   }
-	//tags will be here
+  tags = var.tags
 }
 
 # generate root and subfolders

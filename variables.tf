@@ -1,3 +1,5 @@
+variable "tags" {}
+
 variable "rootlevelfolder" {
   type    = list
   default = []

@@ -53,16 +53,21 @@ I would advise you to start with this:
 
 ### tfvars
 
-"config" is home for different *.tfvars files for different environments
+"config" is home for different *.tfvars files in different environments.
+In this example we're starting with one *.tfvars file.
 
 #### aws-dev.tfvars
 
-In this example the tfvars file contains only:
+Please put the following code in your aws-dev.tfvars:
 
     profile		= "default"
     region		= "eu-central-1"
 
-for useage in our main.tf
+    tags = {
+      environment     = "testing"
+      team            = "terraformers"
+      project         = "aws"
+    }
 
 ### main.tf
 
@@ -79,6 +84,7 @@ Create the main.tf with the following code:
       bucketname  = "INSERT-YOUR-BUCKET-NAME-HERE"
       rootlevelfolder = ["foo", "bar", "baz"]
       sublevelfolder  = ["one", "two", "three", "four", "five", "six"]
+      tags = var.tags
     }
 
 ### variables.tf
@@ -86,18 +92,23 @@ Create the main.tf with the following code:
 You have to declare variables from tfvars file like:
 
     variable "profile" {
-      type          = string
-      description   = "provider profile"
+      type        = string
+      description = "provider profile"
     }
-    
+
     variable "region" {
-      type          = string
-      description   = "provider region"
+      type        = string
+      description = "provider region"
+    }
+
+    variable "tags" {
+        type        = map
+        description = "Tags used for AWS resources"
     }
 
 ### outputs.tf
 
-You can use the outputs from the module here like:
+You can use the outputs from the module in this file like:
 
     output "bucket_id" {
         value = module.s3.this_s3_bucket_id
