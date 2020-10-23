@@ -52,7 +52,7 @@ I would advise you to do it like this:
 
 ### tfvars
 
-You can put in "config" different variables for different environments in a *.tfvars file.
+"config" is home for different *.tfvars files for different environments
 
 #### aws-dev.tfvars
 
@@ -61,11 +61,11 @@ In this example the tfvars file contains only:
     profile		= "default"
     region		= "eu-central-1"
 
-for our main.tf
+for useage in our main.tf
 
 ### main.tf
 
-The main.tf contains the following code:
+Create main.tf with the following code:
 
     provider "aws" {
       profile = var.profile
@@ -76,6 +76,8 @@ The main.tf contains the following code:
     module "s3" {
       source      = "git@github.com:terraform-cloud-aws-modules/s3.git"
       bucketname  = "INSERT-YOUR-BUCKET-NAME-HERE"
+      rootlevelfolder = ["foo", "bar", "baz"]
+      sublevelfolder = ["one", "two", "three", "four", "five", "six"]
     }
 
 ### variables.tf
